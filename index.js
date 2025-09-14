@@ -6,6 +6,7 @@ import usuario from "./modelos/usuario.js";
 import ficha from "./modelos/Fichas.js";
 import fichasRouter from "./rotas/ficha.js";
 import armasRouter from "./rotas/armas.js";
+import magiasRouter from "./rotas/magia.js";
 import { autenticar } from "./middleware/auth.js";
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/ficha", autenticar, fichasRouter);
 app.use("/armas", armasRouter);
+app.use("/magia", magiasRouter);
 
 //Sincroniza com MySQL e iniciar
 sequelize.sync().then(() => {
