@@ -38,7 +38,20 @@ router.get("/:id", autenticar, async (req, res) =>{
             include: usuario,
         });
         if(!umaFicha) return res.status(404).json({ error: "Ficha não encontrada" });
-        res.json(umaFicha);
+        //Calcular Modificadores
+        const mods = {
+            forca: Math.floor((umaFicha.forca - 10)/ 2),
+            destreza: Math.floor((umaFicha.destreza - 10)/2),
+            constituicao: Math.floor((umaFicha.constituicao - 10)/2),
+            sabedoria: Math.floor((umaFicha.sabedoria - 10)/2),
+            inteligencia: Math.floor((umaFicha.inteligencia - 10)/2),
+            carisma: Math.floor((umaFicha.carisma - 10)/2),
+        };
+
+        res.json({
+            ...umaFicha.toJSON(),
+            modificadores: mods
+        });
     } catch (err) {
         res.status(500).json ({error: "Erro ao buscar ficha "});
     }
